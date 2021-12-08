@@ -1,5 +1,6 @@
 import pygame
 import piece
+import logicBoard
 OFFSET = 72
 
 pygame.init()
@@ -19,10 +20,11 @@ background.blit(board, (0, OFFSET))
 
 game_over = False
 
-piece1 = piece.Piece(1)
+piece1 = piece.Piece(1, background)
 pieceGroup = pygame.sprite.Group()
 pieceGroup.add(piece1)
 window.blit(board, (0, OFFSET))
+logicBoard = logicBoard.LogicBoard()
 while not game_over:
 
     for event in pygame.event.get():
@@ -30,7 +32,7 @@ while not game_over:
             pygame.display.quit()
             game_over = True
         if event.type == pygame.MOUSEBUTTONDOWN:
-            print(pygame.mouse.get_pos())
+            print(piece1.dropPiece(logicBoard))
     piece1.updateCenter()
     pieceGroup.clear(window, background)
     pieceGroup.draw(window)
